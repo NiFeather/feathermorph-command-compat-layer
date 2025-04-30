@@ -171,10 +171,10 @@ public class LegacyCommandConverter
 
             NetheriteQueryType netheriteType = switch (type)
             {
-                case QueryType.UNKNOWN -> NetheriteQueryType.UNKNOWN;
-                case QueryType.ADD -> NetheriteQueryType.ADD;
-                case QueryType.REMOVE -> NetheriteQueryType.REMOVE;
-                case QueryType.SET -> NetheriteQueryType.SET;
+                case UNKNOWN -> NetheriteQueryType.UNKNOWN;
+                case ADD -> NetheriteQueryType.ADD;
+                case REMOVE -> NetheriteQueryType.REMOVE;
+                case SET -> NetheriteQueryType.SET;
             };
 
             return new NetheriteS2CQueryCommand(netheriteType, diff.toArray(String[]::new));
@@ -185,16 +185,16 @@ public class LegacyCommandConverter
 
             NetheriteS2CRequestCommand.NetheriteRequestType netheriteRequestType = switch (requestType)
             {
-                case S2CRequestCommand.Type.Unknown -> NetheriteS2CRequestCommand.NetheriteRequestType.Unknown;
+                case Unknown -> NetheriteS2CRequestCommand.NetheriteRequestType.Unknown;
 
-                case S2CRequestCommand.Type.NewRequest -> NetheriteS2CRequestCommand.NetheriteRequestType.NewRequest;
+                case NewRequest -> NetheriteS2CRequestCommand.NetheriteRequestType.NewRequest;
 
-                case S2CRequestCommand.Type.RequestSend -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestSend;
-                case S2CRequestCommand.Type.RequestExpired -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestExpired;
-                case S2CRequestCommand.Type.RequestExpiredOwner -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestExpiredOwner;
+                case RequestSend -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestSend;
+                case RequestExpired -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestExpired;
+                case RequestExpiredOwner -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestExpiredOwner;
 
-                case S2CRequestCommand.Type.RequestAccepted -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestAccepted;
-                case S2CRequestCommand.Type.RequestDenied -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestDenied;
+                case RequestAccepted -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestAccepted;
+                case RequestDenied -> NetheriteS2CRequestCommand.NetheriteRequestType.RequestDenied;
             };
 
             return new NetheriteS2CRequestCommand(netheriteRequestType, targetName);
