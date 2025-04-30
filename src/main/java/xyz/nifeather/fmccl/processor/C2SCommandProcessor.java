@@ -1,13 +1,13 @@
-package xyz.nifeather.fmccl;
+package xyz.nifeather.fmccl.processor;
 
 import xyz.nifeather.fmccl.network.commands.C2S.*;
 import xyz.nifeather.fmccl.network.commands.CommandRegistries;
 
-public class LegacyCommandProcessor<TPlayer>
+public class C2SCommandProcessor
 {
     private final CommandRegistries registries = new CommandRegistries();
 
-    public LegacyCommandProcessor()
+    public C2SCommandProcessor()
     {
         registries.registerC2S(NetheriteC2SCommandNames.Initial, a -> new NetheriteC2SInitialCommand())
                 .registerC2S(NetheriteC2SCommandNames.Morph, NetheriteC2SMorphCommand::new)
@@ -20,11 +20,10 @@ public class LegacyCommandProcessor<TPlayer>
     }
 
     /**
-     * @param owner
      * @param commandLine
      * @return Whether handle success
      */
-    public NetheriteC2SCommand<?> processLegacyCommandLine(TPlayer owner, String commandLine) throws RuntimeException
+    public NetheriteC2SCommand<?> processLegacyCommandLine(String commandLine) throws RuntimeException
     {
         var str = commandLine.split(" ", 2);
 
@@ -37,7 +36,6 @@ public class LegacyCommandProcessor<TPlayer>
         if (c2sCommand == null)
             throw new RuntimeException("Unknown server command for name '%s'".formatted(baseCommand));
 
-        c2sCommand.setOwner(owner);
         return c2sCommand;
     }
 }

@@ -1,5 +1,5 @@
 ## feathermorph-command-compat-layer
-This is a compatibility layer for translating V3 commands into V2/V1 format
+This is a compatibility layer for translating V3 commands into V2/V1 format, currently for internal use.
 
 ## Why?
 Starting from V3, the protocol uses JSON to carry messages between the server and the client, and command arguments are now recorded using a Map.
@@ -8,6 +8,7 @@ These designs make V3 incompatible with V2/V1, so we need a translation layer to
 
 So this is here.
 
+<!--
 ## Usage
 1. Import the library
 2. Create an instance of `LegacyCommandConverter` and `LegacyCommandProcessor`
@@ -20,3 +21,4 @@ So this is here.
 1. Create an V2 command instance from `LegacyCommandProcessor#processLegacyCommandLine(TPlayer, String)`
 2. Use `LegacyCommandConverter#fromNetheriteCommand(NetheriteC2SCommand)` to get a matching V3 instance
    - Throws `RuntimeException` if the given instance doesn't have a matching legacy command instance
+-->
