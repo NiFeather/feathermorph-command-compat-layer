@@ -90,7 +90,7 @@ public class C2SCommandConverter
             return new NetheriteC2SUnmorphCommand();
         });
 
-        this.registerC2SFromModernToNetherite(C2SCommandNames.Request, C2SRequestCommand.class, cmd ->
+        this.registerC2SFromModernToNetherite(C2SCommandNames.ExchangeRequestManagement, C2SExchangeRequestManagementCommand.class, cmd ->
         {
             var modernDecision = cmd.decision;
 
@@ -166,14 +166,14 @@ public class C2SCommandConverter
             return new C2SSetSingleOptionCommand(optionEnum, value);
         }).registerNetheriteToModern(NetheriteC2SCommandNames.Request, NetheriteC2SRequestCommand.class, cmd ->
         {
-            C2SRequestCommand.Decision decision = switch (cmd.decision)
+            C2SExchangeRequestManagementCommand.Decision decision = switch (cmd.decision)
             {
-                case ACCEPT -> C2SRequestCommand.Decision.ACCEPT;
-                case DENY -> C2SRequestCommand.Decision.DENY;
-                case UNKNOWN -> C2SRequestCommand.Decision.UNKNOWN;
+                case ACCEPT -> C2SExchangeRequestManagementCommand.Decision.ACCEPT;
+                case DENY -> C2SExchangeRequestManagementCommand.Decision.DENY;
+                case UNKNOWN -> C2SExchangeRequestManagementCommand.Decision.UNKNOWN;
             };
 
-            return new C2SRequestCommand(decision, cmd.targetRequestName);
+            return new C2SExchangeRequestManagementCommand(decision, cmd.targetRequestName);
         }).registerNetheriteToModern(NetheriteC2SCommandNames.Skill, NetheriteC2SSkillCommand.class, cmd ->
         {
             return new C2SActivateSkillCommand();
