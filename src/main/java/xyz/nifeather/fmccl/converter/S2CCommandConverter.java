@@ -256,7 +256,8 @@ public abstract class S2CCommandConverter
     {
         this.registerNetheriteToModern(NetheriteS2CCommandNames.Current, NetheriteS2CCurrentCommand.class, cmd ->
         {
-            return new S2CCurrentCommand(cmd.getDisguiseIdentifier());
+            var id = cmd.getDisguiseIdentifier();
+            return new S2CCurrentCommand("null".equals(id) ? null : id);
         }).registerNetheriteToModern(NetheriteS2CCommandNames.ReAuth, NetheriteS2CReAuthCommand.class, cmd ->
         {
             return new S2CReAuthCommand();
