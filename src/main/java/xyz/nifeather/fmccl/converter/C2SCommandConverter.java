@@ -45,6 +45,11 @@ public class C2SCommandConverter
             return new NetheriteC2SInitialCommand();
         });
 
+        this.registerC2SFromModernToNetherite(C2SCommandNames.RequestAnimation, C2SRequestAnimationCommand.class, cmd ->
+        {
+            return new NetheriteC2SAnimationCommand(cmd.getAnimationId());
+        });
+
         this.registerC2SFromModernToNetherite(C2SCommandNames.Morph, C2SMorphCommand.class, cmd ->
         {
             var id = cmd.identifier();
