@@ -59,7 +59,7 @@ public abstract class S2CCommandConverter
 
     protected void registerFromModernToNetherite()
     {
-        this.registerModernToNetherite(S2CCommandNames.Current, S2CCurrentCommand.class, cmd ->
+        this.registerModernToNetherite(S2CCommandNames.SetCurrent, S2CSetCurrentCommand.class, cmd ->
         {
             return new NetheriteS2CCurrentCommand(cmd.getDisguiseIdentifier());
         }).registerModernToNetherite(S2CCommandNames.ReAuth, S2CReAuthCommand.class, cmd ->
@@ -85,7 +85,7 @@ public abstract class S2CCommandConverter
             };
 
             return new NetheriteS2CQueryCommand(netheriteType, diff.toArray(String[]::new));
-        }).registerModernToNetherite(S2CCommandNames.Request, S2CRequestCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.UpdateRequestStatus, S2CUpdateRequestStatusCommand.class, cmd ->
         {
             var requestType = cmd.type;
             var targetName = cmd.sourcePlayer;
@@ -108,7 +108,7 @@ public abstract class S2CCommandConverter
         }).registerModernToNetherite(S2CCommandNames.SetAggressive, S2CSetAggressiveCommand.class, cmd ->
         {
             return new NetheriteS2CSetAggressiveCommand(cmd.val);
-        }).registerModernToNetherite(S2CCommandNames.SetProfile, S2CSetProfileCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.SetSkinProfile, S2CSetProfileCommand.class, cmd ->
         {
             return new NetheriteS2CSetProfileCommand(cmd.getProfileSNbt());
         }).registerModernToNetherite(S2CCommandNames.SetSelfViewIdentifier, S2CSetSelfViewIdentifierCommand.class, cmd ->
@@ -129,7 +129,7 @@ public abstract class S2CCommandConverter
         }).registerModernToNetherite(S2CCommandNames.SetModifyBoundingBox, S2CSetModifyBoundingBoxCommand.class, cmd ->
         {
             return new NetheriteS2CSetModifyBoundingBoxCommand(cmd.getModifyBoundingBox());
-        }).registerModernToNetherite(S2CCommandNames.SetRevealing, S2CSetMobRevealingCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.SetMobReveal, S2CSetMobRevealCommand.class, cmd ->
         {
             return new NetheriteS2CSetRevealingCommand(cmd.getValue());
         }).registerModernToNetherite(S2CCommandNames.SetAvailableAnimations, S2CSetAvailableAnimationsCommand.class, cmd ->
@@ -144,23 +144,23 @@ public abstract class S2CCommandConverter
         });
 
         // Admin reveal
-        this.registerModernToNetherite(S2CCommandNames.SetReveal, S2CSyncAdminRevealCommand.class, cmd ->
+        this.registerModernToNetherite(S2CCommandNames.AdminRevealSync, S2CSyncAdminRevealCommand.class, cmd ->
         {
             return new NetheriteS2CMapCommand(cmd.getMap());
-        }).registerModernToNetherite(S2CCommandNames.AddReveal, S2CAddAdminRevealCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.AdminRevealAdd, S2CAddAdminRevealCommand.class, cmd ->
         {
             return new NetheriteS2CPartialMapCommand(cmd.getMap());
-        }).registerModernToNetherite(S2CCommandNames.RemoveReveal, S2CRemoveAdminRevealCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.AdminRevealRemove, S2CRemoveAdminRevealCommand.class, cmd ->
         {
             return new NetheriteS2CMapRemoveCommand(cmd.getTargetId());
-        }).registerModernToNetherite(S2CCommandNames.ClearReveal, S2CClearAdminRevealCommand.class, cmd ->
+        }).registerModernToNetherite(S2CCommandNames.AdminRevealClear, S2CClearAdminRevealCommand.class, cmd ->
         {
             return new NetheriteS2CMapClearCommand();
         });
 
         // Animation
 
-        this.registerModernToNetherite(S2CCommandNames.Animation, S2CAnimationCommand.class, cmd ->
+        this.registerModernToNetherite(S2CCommandNames.PlayAnimation, S2CPlayAnimationCommand.class, cmd ->
         {
             return new NetheriteS2CAnimationCommand(cmd.getAnimId());
         });
@@ -257,7 +257,7 @@ public abstract class S2CCommandConverter
         this.registerNetheriteToModern(NetheriteS2CCommandNames.Current, NetheriteS2CCurrentCommand.class, cmd ->
         {
             var id = cmd.getDisguiseIdentifier();
-            return new S2CCurrentCommand("null".equals(id) ? null : id);
+            return new S2CSetCurrentCommand("null".equals(id) ? null : id);
         }).registerNetheriteToModern(NetheriteS2CCommandNames.ReAuth, NetheriteS2CReAuthCommand.class, cmd ->
         {
             return new S2CReAuthCommand();
@@ -286,21 +286,21 @@ public abstract class S2CCommandConverter
             var netheriteRequestType = cmd.netheriteRequestType;
             var targetName = cmd.sourcePlayer;
 
-            S2CRequestCommand.Type requestType = switch (netheriteRequestType)
+            S2CUpdateRequestStatusCommand.Type requestType = switch (netheriteRequestType)
             {
-                case Unknown -> S2CRequestCommand.Type.Unknown;
+                case Unknown -> S2CUpdateRequestStatusCommand.Type.Unknown;
 
-                case NewRequest -> S2CRequestCommand.Type.NewRequest;
+                case NewRequest -> S2CUpdateRequestStatusCommand.Type.NewRequest;
 
-                case RequestSend -> S2CRequestCommand.Type.RequestSend;
-                case RequestExpired -> S2CRequestCommand.Type.RequestExpired;
-                case RequestExpiredOwner -> S2CRequestCommand.Type.RequestExpiredOwner;
+                case RequestSend -> S2CUpdateRequestStatusCommand.Type.RequestSend;
+                case RequestExpired -> S2CUpdateRequestStatusCommand.Type.RequestExpired;
+                case RequestExpiredOwner -> S2CUpdateRequestStatusCommand.Type.RequestExpiredOwner;
 
-                case RequestAccepted -> S2CRequestCommand.Type.RequestAccepted;
-                case RequestDenied -> S2CRequestCommand.Type.RequestDenied;
+                case RequestAccepted -> S2CUpdateRequestStatusCommand.Type.RequestAccepted;
+                case RequestDenied -> S2CUpdateRequestStatusCommand.Type.RequestDenied;
             };
 
-            return new S2CRequestCommand(requestType, targetName);
+            return new S2CUpdateRequestStatusCommand(requestType, targetName);
         }).registerNetheriteToModern(NetheriteS2CCommandNames.SetAggressive, NetheriteS2CSetAggressiveCommand.class, cmd ->
         {
             return new S2CSetAggressiveCommand(cmd.getArgumentAt(0, false));
@@ -327,7 +327,7 @@ public abstract class S2CCommandConverter
             return new S2CSetModifyBoundingBoxCommand(cmd.getModifyBoundingBox());
         }).registerNetheriteToModern(NetheriteS2CCommandNames.SetRevealing, NetheriteS2CSetRevealingCommand.class, cmd ->
         {
-            return new S2CSetMobRevealingCommand(cmd.getValue());
+            return new S2CSetMobRevealCommand(cmd.getValue());
         }).registerNetheriteToModern(NetheriteS2CCommandNames.SetAvailableAnimations, NetheriteS2CSetAvailableAnimationsCommand.class, cmd ->
         {
             return new S2CSetAvailableAnimationsCommand(cmd.getAvailableAnimations());
@@ -358,7 +358,7 @@ public abstract class S2CCommandConverter
 
         this.registerNetheriteToModern(NetheriteS2CCommandNames.Animation, NetheriteS2CAnimationCommand.class, cmd ->
         {
-            return new S2CAnimationCommand(cmd.getAnimId());
+            return new S2CPlayAnimationCommand(cmd.getAnimId());
         });
 
         // Client Renderer

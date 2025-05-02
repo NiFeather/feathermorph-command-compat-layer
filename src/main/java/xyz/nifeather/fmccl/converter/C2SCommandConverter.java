@@ -40,7 +40,7 @@ public class C2SCommandConverter
 
     protected void registerC2SModernToNetherite()
     {
-        this.registerC2SFromModernToNetherite(C2SCommandNames.Initial, C2SRequestInitialCommand.class, cmd ->
+        this.registerC2SFromModernToNetherite(C2SCommandNames.RequestInitial, C2SRequestInitialCommand.class, cmd ->
         {
             return new NetheriteC2SInitialCommand();
         });
@@ -65,7 +65,7 @@ public class C2SCommandConverter
             return new NetheriteC2SOptionCommand(optionNetherite).setValue(cmd.getValue());
         });
 
-        this.registerC2SFromModernToNetherite(C2SCommandNames.Skill, C2SActivateSkillCommand.class, cmd ->
+        this.registerC2SFromModernToNetherite(C2SCommandNames.ActivateSkill, C2SActivateSkillCommand.class, cmd ->
         {
             return new NetheriteC2SSkillCommand();
         });
@@ -144,7 +144,7 @@ public class C2SCommandConverter
         this.registerNetheriteToModern(NetheriteC2SCommandNames.Animation, NetheriteC2SAnimationCommand.class, cmd ->
         {
             var animId = cmd.getAnimationId();
-            return new C2SAnimationCommand(animId);
+            return new C2SRequestAnimationCommand(animId);
         }).registerNetheriteToModern(NetheriteC2SCommandNames.Initial, NetheriteC2SInitialCommand.class, cmd ->
         {
             return new C2SRequestInitialCommand();
