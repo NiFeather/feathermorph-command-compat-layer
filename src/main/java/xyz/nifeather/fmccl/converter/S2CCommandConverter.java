@@ -87,8 +87,8 @@ public abstract class S2CCommandConverter
             return new NetheriteS2CQueryCommand(netheriteType, diff.toArray(String[]::new));
         }).registerModernToNetherite(S2CCommandNames.UpdateRequestStatus, S2CUpdateRequestStatusCommand.class, cmd ->
         {
-            var requestType = cmd.type;
-            var targetName = cmd.sourcePlayer;
+            var requestType = cmd.requestType;
+            var targetName = cmd.source;
 
             NetheriteS2CRequestCommand.NetheriteRequestType netheriteRequestType = switch (requestType)
             {
