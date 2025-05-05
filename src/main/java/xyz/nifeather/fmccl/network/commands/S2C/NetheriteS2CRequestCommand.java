@@ -12,11 +12,23 @@ public class NetheriteS2CRequestCommand extends NetheriteS2CCommand<String>
     public NetheriteS2CRequestCommand(String rawArgs)
     {
         super(rawArgs.split(" "));
+        initialize();
     }
 
     public NetheriteS2CRequestCommand(NetheriteRequestType requestNetheriteRequestType, String source)
     {
         super(new String[]{requestNetheriteRequestType.commandName, source});
+        initialize();
+    }
+
+    private void initialize()
+    {
+        var typeStr = getArgumentAt(0, "?");
+
+        this.netheriteRequestType = Arrays.stream(NetheriteRequestType.values()).filter(t -> t.commandName.equalsIgnoreCase(typeStr))
+                .findFirst().orElse(NetheriteRequestType.Unknown);
+
+        this.sourcePlayer = getArgumentAt(1, "Unknown source");
     }
 
     @Override
@@ -35,15 +47,6 @@ public class NetheriteS2CRequestCommand extends NetheriteS2CCommand<String>
     @Override
     public void onCommand(BasicServerHandler<?> handler)
     {
-        var typeStr = getArgumentAt(0, "?");
-
-        System.out.println("typeStr: " + typeStr);
-
-        this.netheriteRequestType = Arrays.stream(NetheriteRequestType.values()).filter(t -> t.commandName.equalsIgnoreCase(typeStr))
-                    .findFirst().orElse(NetheriteRequestType.Unknown);
-
-        this.sourcePlayer = getArgumentAt(1, "Unknown source");
-
         handler.onExchangeRequestReceive(this);
     }
 
