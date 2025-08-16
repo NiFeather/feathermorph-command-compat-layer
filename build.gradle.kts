@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.NiFeather"
-version = "1.1.0"
+version = "2.3.6"
 
 repositories {
     mavenLocal()
@@ -83,7 +83,6 @@ dependencies {
     implementation("org.jetbrains:annotations:24.0.0")
     compileOnly("com.google.code.gson:gson:2.10")
     compileOnly("it.unimi.dsi:fastutil:8.2.2")
-
     val protocolVersion = if (rootProject.property("protocols_use_local_build") == "true")
         rootProject.property("protocols_local_version")
     else rootProject.property("protocols_version");

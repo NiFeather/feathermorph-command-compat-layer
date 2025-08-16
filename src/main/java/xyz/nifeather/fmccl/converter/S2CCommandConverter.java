@@ -111,9 +111,6 @@ public abstract class S2CCommandConverter
         }).registerModernToNetherite(S2CCommandNames.SetSkinProfile, S2CSetProfileCommand.class, cmd ->
         {
             return new NetheriteS2CSetProfileCommand(cmd.getProfileSNbt());
-        }).registerModernToNetherite(S2CCommandNames.SetSelfViewIdentifier, S2CSetSelfViewIdentifierCommand.class, cmd ->
-        {
-            return new NetheriteS2CSetSelfViewIdentifierCommand(cmd.getIdentifier());
         }).registerModernToNetherite(S2CCommandNames.SetSkillCooldown, S2CSetSkillCooldownCommand.class, cmd ->
         {
             return new NetheriteS2CSetSkillCooldownCommand(cmd.val);
@@ -307,9 +304,6 @@ public abstract class S2CCommandConverter
         }).registerNetheriteToModern(NetheriteS2CCommandNames.SetProfile, NetheriteS2CSetProfileCommand.class, cmd ->
         {
             return new S2CSetProfileCommand(cmd.getArgumentAt(0, "{}"));
-        }).registerNetheriteToModern(NetheriteS2CCommandNames.SetSelfViewIdentifier, NetheriteS2CSetSelfViewIdentifierCommand.class, cmd ->
-        {
-            return new S2CSetSelfViewIdentifierCommand(cmd.getArgumentAt(0));
         }).registerNetheriteToModern(NetheriteS2CCommandNames.SetSkillCooldown, NetheriteS2CSetSkillCooldownCommand.class, cmd ->
         {
             return new S2CSetSkillCooldownCommand(cmd.getArgumentAt(0, 0L));
