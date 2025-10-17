@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+@SuppressWarnings("removal")
 public abstract class S2CCommandConverter
 {
     public S2CCommandConverter()

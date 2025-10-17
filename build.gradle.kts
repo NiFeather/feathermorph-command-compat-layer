@@ -87,7 +87,7 @@ dependencies {
         rootProject.property("protocols_local_version")
     else rootProject.property("protocols_version");
 
-    implementation("com.github.NiFeather:feathermorph-protocols:${protocolVersion}")
+    compileOnly("com.github.NiFeather:feathermorph-protocols:${protocolVersion}")
 }
 
 publishing {

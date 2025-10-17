@@ -3,6 +3,7 @@ package xyz.nifeather.fmccl.converter;
 import xyz.nifeather.fmccl.network.commands.C2S.*;
 import xyz.nifeather.morph.network.commands.C2S.*;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -156,7 +157,7 @@ public class C2SCommandConverter
         }).registerNetheriteToModern(NetheriteC2SCommandNames.Morph, NetheriteC2SMorphCommand.class, cmd ->
         {
             var id = cmd.getArgumentAt(0, "");
-            return new C2SMorphCommand(id);
+            return new C2SMorphCommand(id, Collections.emptyMap());
         }).registerNetheriteToModern(NetheriteC2SCommandNames.Option, NetheriteC2SOptionCommand.class, cmd ->
         {
             var option = cmd.getOption();
